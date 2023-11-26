@@ -1,3 +1,5 @@
 .vscode
 .metadata
+.classpath
+.project
 /bin
