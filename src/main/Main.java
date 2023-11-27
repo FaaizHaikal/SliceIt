@@ -10,5 +10,6 @@ public class Main {
 		window.setContentPane(new GamePanel());
 		window.pack();
 		window.setVisible(true);
+		window.setResizable(false);
 	}
 }
