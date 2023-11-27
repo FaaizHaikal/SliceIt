@@ -46,6 +46,7 @@ public class MenuState extends State {
 
   @Override
   public void draw(java.awt.Graphics2D g) {
+    reDraw(g);
     g.setFont(font);
     
     for (int i = 0; i < options.length; i++) {

@@ -1,8 +1,16 @@
 package state;
 
+import main.GamePanel;
+
 public abstract class State {
   protected StateManager stateManager;
 
+  public void reDraw(java.awt.Graphics2D g) {
+    if (GamePanel.getRepaint()) {
+      g.clearRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+      GamePanel.setRepaint(false);
+    }
+  }
   public abstract void init();
   public abstract void update();
   public abstract void draw(java.awt.Graphics2D g);

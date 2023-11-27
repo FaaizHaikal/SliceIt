@@ -1,5 +1,6 @@
 package state;
 
+import main.GamePanel;
 public class StateManager {
   private int currState;
   private State[] states;
@@ -38,6 +39,7 @@ public class StateManager {
   }
 
   public void setState(int state) {
+    GamePanel.setRepaint(true);
     unloadState(currState);
     currState = state;
     loadState(currState);

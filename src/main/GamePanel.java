@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	public static final int WIDTH = 1440;
 	public static final int HEIGHT = 800;
 
+    private static boolean repaint;
     private boolean running;
     private int FPS = 60;
     private long targetTime = 1000 / FPS;
@@ -88,6 +89,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         Graphics2D graphics2d = (Graphics2D) getGraphics();
         graphics2d.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
         graphics2d.dispose();
+    }
+
+    public static boolean getRepaint() {
+        return repaint;
+    }
+
+    public static void setRepaint(boolean r) {
+        repaint = r;
     }
 
 	@Override

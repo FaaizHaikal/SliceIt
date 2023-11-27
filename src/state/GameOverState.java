@@ -25,6 +25,7 @@ public class GameOverState extends State {
 
   @Override
   public void draw(java.awt.Graphics2D g) {
+    reDraw(g);
     g.setFont(font);
     g.setColor(java.awt.Color.WHITE);
     g.drawString(
