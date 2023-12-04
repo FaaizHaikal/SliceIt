@@ -3,6 +3,7 @@ package state;
 import main.GamePanel;
 
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 
 public class GameOverState extends State {
   private Font font;
@@ -11,7 +12,12 @@ public class GameOverState extends State {
     this.stateManager = stateManager;
 
     try {
-      font = new Font("Arial", Font.PLAIN, 48); // TODO: Change font
+      Font Gomo = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/Gomo.ttf"));
+
+      GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+      ge.registerFont(Gomo);
+
+      font = Gomo.deriveFont(Font.PLAIN, 48);
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -1,11 +1,17 @@
 package state;
 
 import main.GamePanel;
+import utilities.Text;
 
 import java.awt.Font;
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.util.Objects;
 
 public class MenuState extends State {
-  private Font font;
+  private Font titleFont;
+  private Font menuFont;
   private int currentChoice = -1;
   private String[] options = {
     "Play",
@@ -32,7 +38,16 @@ public class MenuState extends State {
     this.stateManager = stateManager;
 
     try {
-      font = new Font("Arial", Font.PLAIN, 48); // TODO: Change font
+      Font Gomo = Font.createFont(Font.TRUETYPE_FONT, new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
+      Font ChangChang = Font.createFont(Font.TRUETYPE_FONT, new File(Objects.requireNonNull(getClass().getResource("/fonts/ChangChang.ttf")).getPath()));
+
+      GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+      ge.registerFont(Gomo);
+      ge.registerFont(ChangChang);
+
+      menuFont = Gomo.deriveFont(Font.PLAIN, 48);
+      titleFont = ChangChang.deriveFont(Font.PLAIN, 96);
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -47,20 +62,19 @@ public class MenuState extends State {
   @Override
   public void draw(java.awt.Graphics2D g) {
     reDraw(g);
-    g.setFont(font);
-    
+
+    Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 96, titleFont, Color.WHITE);
+
+    g.setFont(menuFont);
+
     for (int i = 0; i < options.length; i++) {
       if (optionHover[i]) {
-        g.setColor(java.awt.Color.RED);
+        g.setColor(Color.RED);
       } else {
-        g.setColor(java.awt.Color.WHITE);
+        g.setColor(Color.WHITE);
       }
 
-      g.drawString(
-        options[i],
-        optionCoords[i][0],
-        optionCoords[i][1]
-      );
+      Text.horizontalCenteredText(g, options[i], GamePanel.WIDTH, optionCoords[i][1], menuFont, g.getColor());
     }
   }
 
