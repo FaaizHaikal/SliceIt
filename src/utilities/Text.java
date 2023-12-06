@@ -37,4 +37,11 @@ public class Text {
 
     g.drawString(text, x, verticalCenter);
   }
+
+  public static void draw(Graphics2D g, String text, int x, int y, Font font, Color color) {
+    g.setFont(font);
+    g.setColor(color);
+
+    g.drawString(text, x, y);
+  }
 }
