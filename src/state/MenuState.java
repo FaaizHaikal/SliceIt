@@ -65,7 +65,7 @@ public class MenuState extends State {
 
     background.draw(g);
     Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 100, titleShadowFont, Color.BLACK);
-    Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 96, titleFont, Color.YELLOW);
+    Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 96, titleFont, Color.WHITE);
 
     g.setFont(menuFont);
 
