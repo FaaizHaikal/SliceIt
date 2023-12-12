@@ -1,7 +1,7 @@
 package state;
 
 import entitites.Element;
-import entitites.fruits.Apple;
+import entitites.Apple;
 import utilities.Background;
 import java.util.ArrayList;
 import java.util.List;

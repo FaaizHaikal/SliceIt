@@ -1,6 +1,4 @@
-package entitites.fruits;
-
-import entitites.Element;
+package entitites;
 
 public class Apple extends Element {
   private static final String apple_path = "/elements/fruits/apple.png";

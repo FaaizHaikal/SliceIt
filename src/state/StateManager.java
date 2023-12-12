@@ -11,7 +11,7 @@ public class StateManager {
   public static final int GAME_OVER_STATE = 2;
 
   public StateManager() {
-    currState = GAME_OVER_STATE;
+    currState = MENU_STATE;
     states = new State[STATES];
     loadState(currState);
   }
