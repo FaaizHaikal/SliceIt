@@ -131,6 +131,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        stateManager.mouseMoved(e);
+        stateManager.mouseDragged(e);
     }
 }

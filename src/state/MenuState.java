@@ -94,10 +94,9 @@ public class MenuState extends State {
     }
 
     if (currentChoice == 0) {
-      // stateManager.loadState(StateManager.GAME_PLAY_STATE);
-      System.out.println("Play");
+      stateManager.setState(StateManager.GAME_PLAY_STATE);
     } else if (currentChoice == 1) {
-      System.out.println("Quit");
+      System.exit(0);
     }
   }
 

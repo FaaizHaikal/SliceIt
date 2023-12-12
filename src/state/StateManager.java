@@ -21,9 +21,9 @@ public class StateManager {
       case MENU_STATE:
         states[MENU_STATE] = new MenuState(this);
         break;
-      // case GAME_PLAY_STATE:
-      //   states[GAME_PLAY_STATE] = new GamePlayState(this);
-      //   break;
+      case GAME_PLAY_STATE:
+        states[GAME_PLAY_STATE] = new GamePlayState(this);
+        break;
       case GAME_OVER_STATE:
         states[GAME_OVER_STATE] = new GameOverState(this);
         break;
