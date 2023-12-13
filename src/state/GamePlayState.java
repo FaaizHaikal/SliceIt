@@ -72,7 +72,6 @@ public class GamePlayState extends State {
     generateElement();
     for (int i=0; i<elements.size();i++) {
       if (elements.get(i).isFall()) {
-        if (elements.get(i).isBomb())
         elements.remove(i);
       } else {
         elements.get(i).draw(g);
