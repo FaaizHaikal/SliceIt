@@ -18,15 +18,14 @@ public class Element {
   private double x;
   private double y;
   private double slicedElementLeftX;
-  private double slicedElementLeftY;
   private double slicedElementRightX;
-  private double slicedElementRightY;
-  private double slicedElementLeftFallSpeed;
-  private double slicedElementRightFallSpeed;
+  private double slicedElementFallSpeed;
   private double xSpeed;
   private double ySpeed;
   private double angle;
   private boolean isSliced;
+  private boolean isBomb;
+  private boolean isFall;
 
     public Element(String elementPath, String slicedElementLeftPath, String slicedElementRightPath) {
       try {
@@ -40,6 +39,16 @@ public class Element {
       }      
     }
 
+    public Element(String elementPath) {
+      try {
+        element = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(elementPath)));
+        isBomb = true;
+        init();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
     public void throwElement() {
       if (ySpeed == 0) {
           ySpeed += GRAVITY;
@@ -50,19 +59,16 @@ public class Element {
       }
 
       x += xSpeed;
-      if (x > GamePanel.WIDTH || y > GamePanel.HEIGHT || x < 0 || y < 0) init();
+      if (x > GamePanel.WIDTH || y > GamePanel.HEIGHT || x < 0 || y < 0);
     }
 
     public void fallElement() {
-      if (slicedElementLeftY > GamePanel.HEIGHT || slicedElementRightY > GamePanel.HEIGHT) {
-        init();
-        isSliced = false;
+      if (y > GamePanel.HEIGHT) {
+        isFall = true;
         return;
       }
-      slicedElementLeftFallSpeed += GRAVITY;
-      slicedElementRightFallSpeed += GRAVITY;
-      slicedElementLeftY += slicedElementLeftFallSpeed;
-      slicedElementRightY += slicedElementRightFallSpeed;
+      slicedElementFallSpeed += GRAVITY;
+      y += slicedElementFallSpeed;
     }
 
     public boolean trajectoryIsValid(boolean isLeft) {
@@ -86,11 +92,9 @@ public class Element {
 
     private void initSlicedElement() {
       slicedElementLeftX = x - 50;
-      slicedElementLeftY = y - 50;
       slicedElementRightX = x + 50;
-      slicedElementRightY = y - 50;
-      slicedElementLeftFallSpeed = 0;
-      slicedElementRightFallSpeed = 0;
+      y -= 50;
+      slicedElementFallSpeed = 0;
     }
 
     public void slice() {
@@ -101,12 +105,15 @@ public class Element {
     public void draw(Graphics2D g) {
       if (isSliced) {
         fallElement();
-        g.drawImage(slicedElementLeft, (int) slicedElementLeftX, (int) slicedElementLeftY, null);
-        g.drawImage(slicedElementRight, (int) slicedElementRightX, (int) slicedElementRightY, null);
+        g.drawImage(slicedElementLeft, (int) slicedElementLeftX, (int) y, null);
+        g.drawImage(slicedElementRight, (int) slicedElementRightX, (int) y, null);
         return;
       }
 
       throwElement();
+      if (isBomb() && y > GamePanel.HEIGHT) {
+        isFall = true;
+      }
       g.drawImage(element, (int) x, (int) y, null);
     }
 
@@ -118,8 +125,15 @@ public class Element {
       return (int) y;
     }
 
-    public boolean getSliced() {
+    public boolean isSliced() {
       return isSliced;
     }
 
+    public boolean isBomb() {
+      return isBomb;
+    }
+
+    public boolean isFall() {
+      return isFall;
+    }
 }
