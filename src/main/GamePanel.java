@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private static boolean repaint;
     private boolean running;
-    private int FPS = 240;
+    private int FPS = 60;
     private long targetTime = 1000 / FPS;
     private Thread thread;
     private BufferedImage image;
