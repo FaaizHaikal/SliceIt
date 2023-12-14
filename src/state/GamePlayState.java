@@ -22,9 +22,9 @@ public class GamePlayState extends State {
   private static final int POM = 4;
   private static final int MAX_ELEMENT = 4;
 
-  public GamePlayState(StateManager stateManager, Counter score) {
+  public GamePlayState(StateManager stateManager) {
     this.stateManager = stateManager;
-    this.score = score;
+    this.score = new Counter();
 
     try {
       background = new Background("/background/background.jpg");
@@ -33,6 +33,7 @@ public class GamePlayState extends State {
       sliceFruitAudio[1] = new Audio("/music/fruit2.wav");
       sliceFruitAudio[2] = new Audio("/music/fruit3.wav");
 
+      init();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -42,8 +43,7 @@ public class GamePlayState extends State {
     int maxElement = random.nextInt(3) + 1;
 
     for (int i = 0; i < maxElement; i++) {
-      if (elements.size() >= MAX_ELEMENT)
-        break;
+      if (elements.size() >= MAX_ELEMENT) break;
       int element = random.nextInt(6);
 
       switch (element) {
@@ -71,10 +71,20 @@ public class GamePlayState extends State {
 
   @Override
   public void init() {
+    score.reset();
+    elements.clear();
   }
 
   @Override
   public void update() {
+    for (int i=0; i<elements.size(); i++) {
+      if (elements.get(i).isFall()) {
+        if (!elements.get(i).isSliced() && !elements.get(i).isBomb()) {
+          score.updateFallen();
+        }
+        elements.remove(i);
+      }
+    }
   }
 
   @Override
@@ -84,33 +94,17 @@ public class GamePlayState extends State {
     background.draw(g);
     generateElement();
     for (int i = 0; i < elements.size(); i++) {
-      if (elements.get(i).isFall()) {
-        elements.remove(i);
-        reDraw(g);
-      } else {
-        elements.get(i).draw(g);
-      }
+      elements.get(i).draw(g);
     }
   }
 
   @Override
-  public void mouseClicked(java.awt.event.MouseEvent e) {
-  }
-
-  public void mousePressed(java.awt.event.MouseEvent e) {
-  }
-
-  public void mouseReleased(java.awt.event.MouseEvent e) {
-  }
-
-  public void mouseEntered(java.awt.event.MouseEvent e) {
-  }
-
-  public void mouseExited(java.awt.event.MouseEvent e) {
-  }
-
-  public void mouseMoved(java.awt.event.MouseEvent e) {
-  }
+  public void mouseClicked(java.awt.event.MouseEvent e) {}
+  public void mousePressed(java.awt.event.MouseEvent e) {}
+  public void mouseReleased(java.awt.event.MouseEvent e) {}
+  public void mouseEntered(java.awt.event.MouseEvent e) {}
+  public void mouseExited(java.awt.event.MouseEvent e) {}
+  public void mouseMoved(java.awt.event.MouseEvent e) {}
 
   public void mouseDragged(java.awt.event.MouseEvent e) {
     int x = e.getX();
@@ -121,21 +115,15 @@ public class GamePlayState extends State {
       if (element.getX() - 50 < x && x < element.getX() + 50 && element.getY() - 50 < y && y < element.getY() + 50) {
         if (element.isBomb()) {
           for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
-          System.out.println(score.getCountSliced());
-          System.out.println(score.getCountFallen());
+          System.out.println("Sliced: " + score.getCountSliced());
+          System.out.println("Fallen: " + score.getCountFallen());
           stateManager.setState(StateManager.GAME_OVER_STATE);
-          score.reset();
         } else if (!element.isSliced()) {
           int randomAudio = random.nextInt(3);
           sliceFruitAudio[randomAudio].play();
           element.slice();
           score.updateSliced();
         }
-      }
-
-      if (!element.isSliced() && element.isFall()) {
-        score.updateFallen();
-        System.out.println(score.getCountFallen());
       }
     }
   }
