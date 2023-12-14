@@ -33,6 +33,7 @@ public class Element {
       slicedElementLeft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(slicedElementLeftPath)));
       slicedElementRight = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(slicedElementRightPath)));
       isSliced = false;
+      isBomb = false;
       init();
     } catch (Exception e) {
       e.printStackTrace();
@@ -59,8 +60,7 @@ public class Element {
     }
 
     x += xSpeed;
-    if (x > GamePanel.WIDTH || y > GamePanel.HEIGHT || x < 0 || y < 0)
-      ;
+    if (x >= GamePanel.WIDTH || y >= GamePanel.HEIGHT || x <= 0 || y <= 0) init();
   }
 
   public void fallElement() {
@@ -74,10 +74,9 @@ public class Element {
 
   public boolean trajectoryIsValid(boolean isLeft) {
     double xMax = INITIAL_VELOCITY * INITIAL_VELOCITY * Math.sin(angle * 2) / GRAVITY;
-    if (isLeft)
-      xMax *= -1;
+    if (isLeft) xMax *= -1;
 
-    return x + xMax < GamePanel.WIDTH - 200 && x + xMax > 200;
+    return x + xMax <= GamePanel.WIDTH - 200 && x + xMax >= 200;
   }
 
   private void init() {
@@ -86,8 +85,7 @@ public class Element {
     y = GamePanel.HEIGHT;
     angle = Math.toRadians(random.nextDouble() * 30 + 60);
     xSpeed = INITIAL_VELOCITY * Math.cos(angle);
-    if (x > GamePanel.WIDTH / 2)
-      xSpeed *= -1;
+    if (x > GamePanel.WIDTH / 2) xSpeed *= -1;
     ySpeed = INITIAL_VELOCITY * Math.sin(angle);
 
     if (!trajectoryIsValid(xSpeed < 0))
@@ -115,7 +113,7 @@ public class Element {
     }
 
     throwElement();
-    if (isBomb() && y > GamePanel.HEIGHT) {
+    if (y >= GamePanel.HEIGHT) {
       isFall = true;
     }
     g.drawImage(element, (int) x, (int) y, null);
