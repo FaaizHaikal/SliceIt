@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 
 import state.StateManager;
 
-public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, Runnable  {
-	public static final int WIDTH = 1440;
-	public static final int HEIGHT = 800;
+public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, Runnable {
+    public static final int WIDTH = 1440;
+    public static final int HEIGHT = 800;
 
     private static boolean repaint;
     private boolean running;
@@ -23,12 +23,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private BufferedImage image;
     private Graphics2D graphics2d;
     private StateManager stateManager;
-	
-	public GamePanel() {
-		super();
-		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		setFocusable(true);
-	}
+
+    public GamePanel() {
+        super();
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setFocusable(true);
+    }
 
     public void addNotify() {
         super.addNotify();
@@ -99,30 +99,30 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         repaint = r;
     }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		stateManager.mouseClicked(e);
-	}
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        stateManager.mouseClicked(e);
+    }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		stateManager.mousePressed(e);
-	}
+    @Override
+    public void mousePressed(MouseEvent e) {
+        stateManager.mousePressed(e);
+    }
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
+    @Override
+    public void mouseReleased(MouseEvent e) {
         stateManager.mouseReleased(e);
-	}
+    }
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		stateManager.mouseEntered(e);
-	}
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        stateManager.mouseEntered(e);
+    }
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		stateManager.mouseExited(e);
-	}
+    @Override
+    public void mouseExited(MouseEvent e) {
+        stateManager.mouseExited(e);
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {

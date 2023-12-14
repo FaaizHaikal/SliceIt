@@ -24,21 +24,19 @@ public class GameOverState extends State {
   }
 
   @Override
-  public void init() {}
+  public void init() {
+  }
 
   @Override
-  public void update() {}
+  public void update() {
+  }
 
   @Override
   public void draw(java.awt.Graphics2D g) {
     reDraw(g);
     g.setFont(font);
     g.setColor(java.awt.Color.WHITE);
-    g.drawString(
-      "Game Over",
-      GamePanel.WIDTH / 2 - 96,
-      GamePanel.HEIGHT / 2 - 24
-    );
+    g.drawString("Game Over", GamePanel.WIDTH / 2 - 96, GamePanel.HEIGHT / 2 - 24);
   }
 
   @Override
@@ -47,20 +45,26 @@ public class GameOverState extends State {
   }
 
   @Override
-  public void mousePressed(java.awt.event.MouseEvent e) {}
+  public void mousePressed(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseReleased(java.awt.event.MouseEvent e) {}
+  public void mouseReleased(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseEntered(java.awt.event.MouseEvent e) {}
+  public void mouseEntered(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseExited(java.awt.event.MouseEvent e) {}
+  public void mouseExited(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseMoved(java.awt.event.MouseEvent e) {}
+  public void mouseMoved(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseDragged(java.awt.event.MouseEvent e) {}
+  public void mouseDragged(java.awt.event.MouseEvent e) {
+  }
 }

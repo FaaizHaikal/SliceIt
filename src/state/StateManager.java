@@ -1,6 +1,8 @@
 package state;
 
 import main.GamePanel;
+import utilities.Counter;
+
 public class StateManager {
   private int currState;
   private State[] states;
@@ -18,19 +20,20 @@ public class StateManager {
 
   public void loadState(int state) {
     switch (state) {
-      case MENU_STATE:
-        states[MENU_STATE] = new MenuState(this);
-        break;
-      case GAME_PLAY_STATE:
-        states[GAME_PLAY_STATE] = new GamePlayState(this);
-        break;
-      case GAME_OVER_STATE:
-        states[GAME_OVER_STATE] = new GameOverState(this);
-        break;
-      default:
-        System.out.println("Invalid state");
-        System.exit(1);
-        break;
+    case MENU_STATE:
+      states[MENU_STATE] = new MenuState(this);
+      break;
+    case GAME_PLAY_STATE:
+      Counter score = new Counter();
+      states[GAME_PLAY_STATE] = new GamePlayState(this, score);
+      break;
+    case GAME_OVER_STATE:
+      states[GAME_OVER_STATE] = new GameOverState(this);
+      break;
+    default:
+      System.out.println("Invalid state");
+      System.exit(1);
+      break;
     }
   }
 
@@ -55,7 +58,8 @@ public class StateManager {
 
   public void draw(java.awt.Graphics2D g) {
     try {
-      if (states[currState] != null) states[currState].draw(g);
+      if (states[currState] != null)
+        states[currState].draw(g);
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -16,20 +16,11 @@ public class MenuState extends State {
   private Font titleShadowFont;
   private Font menuFont;
   private int currentChoice = -1;
-  private String[] options = {
-    "Play",
-    "Quit"
-  };
+  private String[] options = { "Play", "Quit" };
 
-  private int[][] optionCoords = {
-    { 1024, 558},
-    { 1024, 658}
-  };
+  private int[][] optionCoords = { { 1024, 558 }, { 1024, 658 } };
 
-  private boolean[] optionHover = {
-    false,
-    false
-  };
+  private boolean[] optionHover = { false, false };
 
   public MenuState(StateManager stateManager) {
     this.stateManager = stateManager;
@@ -37,8 +28,10 @@ public class MenuState extends State {
     try {
       background = new Background("/background/menu_background.png");
 
-      Font Gomo = Font.createFont(Font.TRUETYPE_FONT, new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
-      Font ChangChang = Font.createFont(Font.TRUETYPE_FONT, new File(Objects.requireNonNull(getClass().getResource("/fonts/ChangChang.ttf")).getPath()));
+      Font Gomo = Font.createFont(Font.TRUETYPE_FONT,
+          new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
+      Font ChangChang = Font.createFont(Font.TRUETYPE_FONT,
+          new File(Objects.requireNonNull(getClass().getResource("/fonts/ChangChang.ttf")).getPath()));
 
       GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
       ge.registerFont(Gomo);
@@ -54,17 +47,20 @@ public class MenuState extends State {
   }
 
   @Override
-  public void init() {}
+  public void init() {
+  }
 
   @Override
-  public void update() {}
+  public void update() {
+  }
 
   @Override
   public void draw(java.awt.Graphics2D g) {
     reDraw(g);
 
     background.draw(g);
-    Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 100, titleShadowFont, Color.BLACK);
+    Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 100, titleShadowFont,
+        Color.BLACK);
     Text.horizontalCenteredText(g, "Slice It!", GamePanel.WIDTH, GamePanel.HEIGHT / 2 - 96, titleFont, Color.WHITE);
 
     g.setFont(menuFont);
@@ -85,11 +81,11 @@ public class MenuState extends State {
     int x = e.getX();
     int y = e.getY();
 
-    if (x >= optionCoords[0][0] && x <= optionCoords[0][0] + 96 &&
-        y >= optionCoords[0][1] - 48 && y <= optionCoords[0][1]) {
+    if (x >= optionCoords[0][0] && x <= optionCoords[0][0] + 96 && y >= optionCoords[0][1] - 48
+        && y <= optionCoords[0][1]) {
       currentChoice = 0;
-    } else if (x >= optionCoords[1][0] && x <= optionCoords[1][0] + 96 &&
-               y >= optionCoords[1][1] - 48 && y <= optionCoords[1][1]) {
+    } else if (x >= optionCoords[1][0] && x <= optionCoords[1][0] + 96 && y >= optionCoords[1][1] - 48
+        && y <= optionCoords[1][1]) {
       currentChoice = 1;
     }
 
@@ -101,16 +97,20 @@ public class MenuState extends State {
   }
 
   @Override
-  public void mousePressed(java.awt.event.MouseEvent e) {}
+  public void mousePressed(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseReleased(java.awt.event.MouseEvent e) {}
+  public void mouseReleased(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseEntered(java.awt.event.MouseEvent e) {}
+  public void mouseEntered(java.awt.event.MouseEvent e) {
+  }
 
   @Override
-  public void mouseExited(java.awt.event.MouseEvent e) {}
+  public void mouseExited(java.awt.event.MouseEvent e) {
+  }
 
   @Override
   public void mouseMoved(java.awt.event.MouseEvent e) {
@@ -118,16 +118,17 @@ public class MenuState extends State {
     int y = e.getY();
 
     for (int i = 0; i < options.length; i++) {
-        if (x >= optionCoords[i][0] && x <= optionCoords[i][0] + 120 &&
-                y >= optionCoords[i][1] - 48 && y <= optionCoords[i][1]) {
-            currentChoice = i;
-            optionHover[i] = true;
-        } else {
-            optionHover[i] = false;
-        }
+      if (x >= optionCoords[i][0] && x <= optionCoords[i][0] + 120 && y >= optionCoords[i][1] - 48
+          && y <= optionCoords[i][1]) {
+        currentChoice = i;
+        optionHover[i] = true;
+      } else {
+        optionHover[i] = false;
+      }
     }
   }
 
   @Override
-  public void mouseDragged(java.awt.event.MouseEvent e) {}
+  public void mouseDragged(java.awt.event.MouseEvent e) {
+  }
 }
