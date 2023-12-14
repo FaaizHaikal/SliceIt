@@ -1,5 +1,6 @@
 package state;
 
+import audio.Audio;
 import entitites.*;
 import utilities.Background;
 import utilities.Counter;
@@ -10,6 +11,7 @@ import java.util.Random;
 
 public class GamePlayState extends State {
   private Background background;
+  private Audio[] sliceFruitAudio = new Audio[3];
   private Counter score;
   private static List<Element> elements;
   private static Random random = new Random();
@@ -27,6 +29,9 @@ public class GamePlayState extends State {
     try {
       background = new Background("/background/background.jpg");
       elements = new ArrayList<Element>();
+      sliceFruitAudio[0] = new Audio("/music/fruit1.wav");
+      sliceFruitAudio[1] = new Audio("/music/fruit2.wav");
+      sliceFruitAudio[2] = new Audio("/music/fruit3.wav");
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -115,11 +120,14 @@ public class GamePlayState extends State {
       Element element = elements.get(i);
       if (element.getX() - 50 < x && x < element.getX() + 50 && element.getY() - 50 < y && y < element.getY() + 50) {
         if (element.isBomb()) {
+          for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
           System.out.println(score.getCountSliced());
           System.out.println(score.getCountFallen());
           stateManager.setState(StateManager.GAME_OVER_STATE);
           score.reset();
         } else if (!element.isSliced()) {
+          int randomAudio = random.nextInt(3);
+          sliceFruitAudio[randomAudio].play();
           element.slice();
           score.updateSliced();
         }

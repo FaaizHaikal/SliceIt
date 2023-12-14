@@ -3,6 +3,7 @@ package state;
 import main.GamePanel;
 import utilities.Text;
 import utilities.Background;
+import audio.Audio;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 public class MenuState extends State {
   private Background background;
+  private Audio menuAudio;
   private Font titleFont;
   private Font titleShadowFont;
   private Font menuFont;
@@ -27,6 +29,7 @@ public class MenuState extends State {
 
     try {
       background = new Background("/background/menu_background.png");
+      menuAudio = new Audio("/music/mainTheme.wav");
 
       Font Gomo = Font.createFont(Font.TRUETYPE_FONT,
           new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
@@ -41,6 +44,7 @@ public class MenuState extends State {
       titleFont = ChangChang.deriveFont(Font.PLAIN, 96);
       titleShadowFont = ChangChang.deriveFont(Font.PLAIN, 100);
 
+      menuAudio.play();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -90,6 +94,7 @@ public class MenuState extends State {
     }
 
     if (currentChoice == 0) {
+      menuAudio.stop();
       stateManager.setState(StateManager.GAME_PLAY_STATE);
     } else if (currentChoice == 1) {
       System.exit(0);
