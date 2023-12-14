@@ -81,6 +81,12 @@ public class GamePlayState extends State {
       if (elements.get(i).isFall()) {
         if (!elements.get(i).isSliced() && !elements.get(i).isBomb()) {
           score.updateFallen();
+          if (score.getCountFallen() >= 3) {
+            for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
+            System.out.println("Sliced: " + score.getCountSliced());
+            System.out.println("Fallen: " + score.getCountFallen());
+            stateManager.setState(StateManager.GAME_OVER_STATE);
+          }
         }
         elements.remove(i);
       }
