@@ -60,7 +60,6 @@ public class Element {
     }
 
     x += xSpeed;
-    if (x >= GamePanel.WIDTH || y >= GamePanel.HEIGHT || x <= 0 || y <= 0) init();
   }
 
   public void fallElement() {
@@ -88,8 +87,7 @@ public class Element {
     if (x > GamePanel.WIDTH / 2) xSpeed *= -1;
     ySpeed = INITIAL_VELOCITY * Math.sin(angle);
 
-    if (!trajectoryIsValid(xSpeed < 0))
-      init();
+    if (!trajectoryIsValid(xSpeed < 0)) init();
   }
 
   private void initSlicedElement() {
