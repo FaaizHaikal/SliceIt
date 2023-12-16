@@ -5,11 +5,16 @@ import entitites.*;
 import utilities.Background;
 import utilities.Counter;
 
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class GamePlayState extends State {
+  private Font gameFont;
   private Background background;
   private Audio[] sliceFruitAudio = new Audio[3];
   private Counter score;
@@ -33,6 +38,13 @@ public class GamePlayState extends State {
       sliceFruitAudio[1] = new Audio("/music/fruit2.wav");
       sliceFruitAudio[2] = new Audio("/music/fruit3.wav");
 
+      Font Gomo = Font.createFont(Font.TRUETYPE_FONT,
+          new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
+
+      GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+      ge.registerFont(Gomo);
+
+      gameFont = Gomo.deriveFont(Font.PLAIN, 120);
       init();
     } catch (Exception e) {
       e.printStackTrace();
@@ -69,6 +81,11 @@ public class GamePlayState extends State {
     }
   }
 
+  private void drawScore(java.awt.Graphics2D g) {
+    g.setColor(java.awt.Color.ORANGE);
+    g.setFont(gameFont);
+    g.drawString(""+score.getCountSliced(), 20, 100);
+  }
   @Override
   public void init() {
     score.reset();
@@ -98,6 +115,7 @@ public class GamePlayState extends State {
     reDraw(g);
 
     background.draw(g);
+    drawScore(g);
     generateElement();
     for (int i = 0; i < elements.size(); i++) {
       elements.get(i).draw(g);
