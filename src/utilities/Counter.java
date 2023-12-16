@@ -1,32 +1,31 @@
 package utilities;
 
 public class Counter {
-  protected int countSliced;
-  protected int countFallen;
+  protected static int countSliced;
+  protected static int countFallen;
 
   public Counter() {
+    reset();
+  }
+
+  public static void reset() {
     countSliced = 0;
     countFallen = 0;
   }
 
-  public void reset() {
-    countSliced = 0;
-    countFallen = 0;
-  }
-
-  public void updateSliced() {
+  public static void updateSliced() {
     countSliced++;
   }
 
-  public int getCountSliced() {
+  public static int getCountSliced() {
     return countSliced;
   }
 
-  public void updateFallen() {
+  public static void updateFallen() {
     countFallen++;
   }
 
-  public int getCountFallen() {
+  public static int getCountFallen() {
     return countFallen;
   }
 }

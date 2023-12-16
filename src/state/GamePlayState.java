@@ -7,17 +7,21 @@ import utilities.Counter;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
 public class GamePlayState extends State {
   private Font gameFont;
   private Background background;
-  private Audio[] sliceFruitAudio = new Audio[3];
-  private Counter score;
+  private Audio[] sliceFruitAudio;
+  private BufferedImage[] lives;
+  private int currentLives;
   private static List<Element> elements;
   private static Random random = new Random();
   private static final int APPLE = 0;
@@ -29,14 +33,21 @@ public class GamePlayState extends State {
 
   public GamePlayState(StateManager stateManager) {
     this.stateManager = stateManager;
-    this.score = new Counter();
 
     try {
       background = new Background("/background/background.jpg");
       elements = new ArrayList<Element>();
+      sliceFruitAudio = new Audio[3];
+      lives = new BufferedImage[4];
+
       sliceFruitAudio[0] = new Audio("/music/fruit1.wav");
       sliceFruitAudio[1] = new Audio("/music/fruit2.wav");
       sliceFruitAudio[2] = new Audio("/music/fruit3.wav");
+
+      lives[0] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/elements/lives0.png")));
+      lives[1] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/elements/lives1.png")));
+      lives[2] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/elements/lives2.png")));
+      lives[3] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/elements/lives3.png")));
 
       Font Gomo = Font.createFont(Font.TRUETYPE_FONT,
           new File(Objects.requireNonNull(getClass().getResource("/fonts/Gomo.ttf")).getPath()));
@@ -84,12 +95,18 @@ public class GamePlayState extends State {
   private void drawScore(java.awt.Graphics2D g) {
     g.setColor(java.awt.Color.ORANGE);
     g.setFont(gameFont);
-    g.drawString(""+score.getCountSliced(), 20, 100);
+    g.drawString(""+Counter.getCountSliced(), 20, 100);
   }
+
+  private void drawLives(java.awt.Graphics2D g) {
+    g.drawImage(lives[currentLives], 1300, 20, null);
+  }
+
   @Override
   public void init() {
-    score.reset();
+    Counter.reset();
     elements.clear();
+    currentLives = 3;
   }
 
   @Override
@@ -97,11 +114,10 @@ public class GamePlayState extends State {
     for (int i=0; i<elements.size(); i++) {
       if (elements.get(i).isFall()) {
         if (!elements.get(i).isSliced() && !elements.get(i).isBomb()) {
-          score.updateFallen();
-          if (score.getCountFallen() >= 3) {
+          Counter.updateFallen();
+          currentLives--;
+          if (Counter.getCountFallen() >= 3) {
             for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
-            System.out.println("Sliced: " + score.getCountSliced());
-            System.out.println("Fallen: " + score.getCountFallen());
             stateManager.setState(StateManager.GAME_OVER_STATE);
           }
         }
@@ -116,7 +132,9 @@ public class GamePlayState extends State {
 
     background.draw(g);
     drawScore(g);
+    drawLives(g);
     generateElement();
+
     for (int i = 0; i < elements.size(); i++) {
       elements.get(i).draw(g);
     }
@@ -139,14 +157,12 @@ public class GamePlayState extends State {
       if (element.getX() - 50 < x && x < element.getX() + 50 && element.getY() - 50 < y && y < element.getY() + 50) {
         if (element.isBomb()) {
           for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
-          System.out.println("Sliced: " + score.getCountSliced());
-          System.out.println("Fallen: " + score.getCountFallen());
           stateManager.setState(StateManager.GAME_OVER_STATE);
         } else if (!element.isSliced()) {
           int randomAudio = random.nextInt(3);
           sliceFruitAudio[randomAudio].play();
           element.slice();
-          score.updateSliced();
+          Counter.updateSliced();
         }
       }
     }

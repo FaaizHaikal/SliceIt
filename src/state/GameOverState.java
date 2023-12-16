@@ -3,6 +3,8 @@ package state;
 import audio.Audio;
 import main.GamePanel;
 import utilities.Background;
+import utilities.Counter;
+import utilities.Text;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -11,6 +13,7 @@ public class GameOverState extends State {
   private Background background;
   private Audio gameOverAudio;
   private Font font;
+  private String score;
 
   public GameOverState(StateManager stateManager) {
     this.stateManager = stateManager;
@@ -23,8 +26,8 @@ public class GameOverState extends State {
       GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
       ge.registerFont(Gomo);
 
-      font = Gomo.deriveFont(Font.PLAIN, 48);
-
+      font = Gomo.deriveFont(Font.PLAIN, 120);
+      score = Counter.getCountSliced() + " fruit";
       gameOverAudio.play();
     } catch (Exception e) {
       e.printStackTrace();
@@ -44,9 +47,8 @@ public class GameOverState extends State {
     reDraw(g);
 
     background.draw(g);
-    g.setFont(font);
-    g.setColor(java.awt.Color.WHITE);
-    g.drawString("Game Over", GamePanel.WIDTH / 2 - 96, GamePanel.HEIGHT / 2 - 24);
+    Text.horizontalCenteredText(g, "Game Over", GamePanel.WIDTH, 300, font, java.awt.Color.RED);
+    Text.horizontalCenteredText(g, score, GamePanel.WIDTH, 450, font, java.awt.Color.GREEN);
   }
 
   @Override
