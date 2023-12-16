@@ -15,10 +15,12 @@ public class Element {
   private BufferedImage element;
   private BufferedImage slicedElementLeft;
   private BufferedImage slicedElementRight;
+  private BufferedImage splash;
   private double x;
   private double y;
   private double slicedElementLeftX;
   private double slicedElementRightX;
+  private double slicedElementY;
   private double slicedElementFallSpeed;
   private double xSpeed;
   private double ySpeed;
@@ -27,11 +29,12 @@ public class Element {
   private boolean isBomb;
   private boolean isFall;
 
-  public Element(String elementPath, String slicedElementLeftPath, String slicedElementRightPath) {
+  public Element(String elementPath, String slicedElementLeftPath, String slicedElementRightPath, String splashPath) {
     try {
       element = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(elementPath)));
       slicedElementLeft = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(slicedElementLeftPath)));
       slicedElementRight = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(slicedElementRightPath)));
+      splash = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(splashPath)));
       isSliced = false;
       isBomb = false;
       init();
@@ -63,12 +66,12 @@ public class Element {
   }
 
   public void fallElement() {
-    if (y > GamePanel.HEIGHT) {
+    if (slicedElementY > GamePanel.HEIGHT) {
       isFall = true;
       return;
     }
     slicedElementFallSpeed += GRAVITY;
-    y += slicedElementFallSpeed;
+    slicedElementY += slicedElementFallSpeed;
   }
 
   public boolean trajectoryIsValid(boolean isLeft) {
@@ -93,7 +96,7 @@ public class Element {
   private void initSlicedElement() {
     slicedElementLeftX = x - 50;
     slicedElementRightX = x + 50;
-    y -= 50;
+    slicedElementY = y - 50;
     slicedElementFallSpeed = 0;
   }
 
@@ -105,8 +108,11 @@ public class Element {
   public void draw(Graphics2D g) {
     if (isSliced) {
       fallElement();
-      g.drawImage(slicedElementLeft, (int) slicedElementLeftX, (int) y, null);
-      g.drawImage(slicedElementRight, (int) slicedElementRightX, (int) y, null);
+      if (!isFall) {
+        g.drawImage(splash, (int) x, (int) y, null);
+      }
+      g.drawImage(slicedElementLeft, (int) slicedElementLeftX, (int) slicedElementY, null);
+      g.drawImage(slicedElementRight, (int) slicedElementRightX, (int) slicedElementY, null);
       return;
     }
 

@@ -114,9 +114,8 @@ public class GamePlayState extends State {
     for (int i=0; i<elements.size(); i++) {
       if (elements.get(i).isFall()) {
         if (!elements.get(i).isSliced() && !elements.get(i).isBomb()) {
-          Counter.updateFallen();
           currentLives--;
-          if (Counter.getCountFallen() >= 3) {
+          if (currentLives == 0) {
             for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
             stateManager.setState(StateManager.GAME_OVER_STATE);
           }

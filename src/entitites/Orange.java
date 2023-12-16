@@ -1,11 +1,12 @@
 package entitites;
 
 public class Orange extends Element {
-  private static final String orange_path = "/elements/fruits/orange.png";
-  private static final String orange_sliced_left_path = "/elements/fruits/orange_sliced.png";
-  private static final String orange_sliced_right_path = "/elements/fruits/orange_sliced.png";
+  private static final String ORANGE = "/elements/fruits/orange.png";
+  private static final String ORANGE_SLICED_LEFT = "/elements/fruits/orange_sliced.png";
+  private static final String ORANGE_SLICED_RIGHT = "/elements/fruits/orange_sliced.png";
+  private static final String ORANGE_SPLASH = "/elements/fruits/splash2.png";
 
   public Orange() {
-    super(orange_path, orange_sliced_left_path, orange_sliced_right_path);
+    super(ORANGE, ORANGE_SLICED_LEFT, ORANGE_SLICED_RIGHT, ORANGE_SPLASH);
   }
 }

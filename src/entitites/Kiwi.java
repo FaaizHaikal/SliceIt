@@ -1,11 +1,12 @@
 package entitites;
 
 public class Kiwi extends Element {
-  private static final String kiwi_path = "/elements/fruits/kiwi.png";
-  private static final String kiwi_sliced_left_path = "/elements/fruits/kiwi_sliced.png";
-  private static final String kiwi_sliced_right_path = "/elements/fruits/kiwi_sliced.png";
+  private static final String KIWI = "/elements/fruits/kiwi.png";
+  private static final String KIWI_SLICED_LEFT = "/elements/fruits/kiwi_sliced.png";
+  private static final String KIWI_SLICED_RIGHT = "/elements/fruits/kiwi_sliced.png";
+  private static final String KIWI_SPLASH = "/elements/fruits/splash3.png";
 
   public Kiwi() {
-    super(kiwi_path, kiwi_sliced_left_path, kiwi_sliced_right_path);
+    super(KIWI, KIWI_SLICED_LEFT, KIWI_SLICED_RIGHT, KIWI_SPLASH);
   }
 }
