@@ -117,6 +117,10 @@ public class GamePlayState extends State {
           currentLives--;
           if (currentLives == 0) {
             for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
+            if (Counter.getCountSliced() > Counter.getHighScore()) {
+              Counter.setHighScore(Counter.getCountSliced());
+              Counter.saveHighScore();
+            }
             stateManager.setState(StateManager.GAME_OVER_STATE);
           }
         }
@@ -156,6 +160,10 @@ public class GamePlayState extends State {
       if (element.getX() - 50 < x && x < element.getX() + 50 && element.getY() - 50 < y && y < element.getY() + 50) {
         if (element.isBomb()) {
           for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
+          if (Counter.getCountSliced() > Counter.getHighScore()) {
+            Counter.setHighScore(Counter.getCountSliced());
+            Counter.saveHighScore();
+          }
           stateManager.setState(StateManager.GAME_OVER_STATE);
         } else if (!element.isSliced()) {
           int randomAudio = random.nextInt(3);

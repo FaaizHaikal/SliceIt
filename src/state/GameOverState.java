@@ -49,6 +49,9 @@ public class GameOverState extends State {
     background.draw(g);
     Text.horizontalCenteredText(g, "Game Over", GamePanel.WIDTH, 300, font, java.awt.Color.RED);
     Text.horizontalCenteredText(g, score, GamePanel.WIDTH, 450, font, java.awt.Color.GREEN);
+    if (Counter.isNewHighScore()) {
+      Text.horizontalCenteredText(g, "New High Score!", GamePanel.WIDTH, 600, font, java.awt.Color.YELLOW);
+    }
   }
 
   @Override
