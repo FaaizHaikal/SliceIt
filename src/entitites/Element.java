@@ -76,7 +76,8 @@ public class Element {
 
   public boolean trajectoryIsValid(boolean isLeft) {
     double xMax = INITIAL_VELOCITY * INITIAL_VELOCITY * Math.sin(angle * 2) / GRAVITY;
-    if (isLeft) xMax *= -1;
+    if (isLeft)
+      xMax *= -1;
 
     return x + xMax <= GamePanel.WIDTH - 200 && x + xMax >= 200;
   }
@@ -87,10 +88,12 @@ public class Element {
     y = GamePanel.HEIGHT;
     angle = Math.toRadians(random.nextDouble() * 30 + 60);
     xSpeed = INITIAL_VELOCITY * Math.cos(angle);
-    if (x > GamePanel.WIDTH / 2) xSpeed *= -1;
+    if (x > GamePanel.WIDTH / 2)
+      xSpeed *= -1;
     ySpeed = INITIAL_VELOCITY * Math.sin(angle);
 
-    if (!trajectoryIsValid(xSpeed < 0)) init();
+    if (!trajectoryIsValid(xSpeed < 0))
+      init();
   }
 
   private void initSlicedElement() {

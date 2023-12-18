@@ -66,28 +66,29 @@ public class GamePlayState extends State {
     int maxElement = random.nextInt(3) + 1;
 
     for (int i = 0; i < maxElement; i++) {
-      if (elements.size() >= MAX_ELEMENT) break;
+      if (elements.size() >= MAX_ELEMENT)
+        break;
       int element = random.nextInt(6);
 
       switch (element) {
-      case APPLE:
-        elements.add(new Apple());
-        break;
-      case KIWI:
-        elements.add(new Kiwi());
-        break;
-      case LEMON:
-        elements.add(new Lemon());
-        break;
-      case ORANGE:
-        elements.add(new Orange());
-        break;
-      case POM:
-        elements.add(new Pom());
-        break;
-      default:
-        elements.add(new Bomb());
-        break;
+        case APPLE:
+          elements.add(new Apple());
+          break;
+        case KIWI:
+          elements.add(new Kiwi());
+          break;
+        case LEMON:
+          elements.add(new Lemon());
+          break;
+        case ORANGE:
+          elements.add(new Orange());
+          break;
+        case POM:
+          elements.add(new Pom());
+          break;
+        default:
+          elements.add(new Bomb());
+          break;
       }
     }
   }
@@ -95,11 +96,11 @@ public class GamePlayState extends State {
   private void drawScore(java.awt.Graphics2D g) {
     g.setColor(java.awt.Color.ORANGE);
     g.setFont(gameFont);
-    g.drawString(""+Counter.getCountSliced(), 20, 100);
+    g.drawString("" + Counter.getCountSliced(), 20, 100);
   }
 
   private void drawLives(java.awt.Graphics2D g) {
-    g.drawImage(lives[currentLives], 1300, 20, null);
+    g.drawImage(lives[currentLives], 1250, 20, null);
   }
 
   @Override
@@ -111,12 +112,13 @@ public class GamePlayState extends State {
 
   @Override
   public void update() {
-    for (int i=0; i<elements.size(); i++) {
+    for (int i = 0; i < elements.size(); i++) {
       if (elements.get(i).isFall()) {
         if (!elements.get(i).isSliced() && !elements.get(i).isBomb()) {
           currentLives--;
           if (currentLives == 0) {
-            for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
+            for (int j = 0; j < 3; j++)
+              sliceFruitAudio[j].stop();
             if (Counter.getCountSliced() > Counter.getHighScore()) {
               Counter.setHighScore(Counter.getCountSliced());
               Counter.saveHighScore();
@@ -144,12 +146,23 @@ public class GamePlayState extends State {
   }
 
   @Override
-  public void mouseClicked(java.awt.event.MouseEvent e) {}
-  public void mousePressed(java.awt.event.MouseEvent e) {}
-  public void mouseReleased(java.awt.event.MouseEvent e) {}
-  public void mouseEntered(java.awt.event.MouseEvent e) {}
-  public void mouseExited(java.awt.event.MouseEvent e) {}
-  public void mouseMoved(java.awt.event.MouseEvent e) {}
+  public void mouseClicked(java.awt.event.MouseEvent e) {
+  }
+
+  public void mousePressed(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseReleased(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseEntered(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseExited(java.awt.event.MouseEvent e) {
+  }
+
+  public void mouseMoved(java.awt.event.MouseEvent e) {
+  }
 
   public void mouseDragged(java.awt.event.MouseEvent e) {
     int x = e.getX();
@@ -159,7 +172,8 @@ public class GamePlayState extends State {
       Element element = elements.get(i);
       if (element.getX() - 50 < x && x < element.getX() + 50 && element.getY() - 50 < y && y < element.getY() + 50) {
         if (element.isBomb()) {
-          for (int j=0; j<3; j++) sliceFruitAudio[j].stop();
+          for (int j = 0; j < 3; j++)
+            sliceFruitAudio[j].stop();
           if (Counter.getCountSliced() > Counter.getHighScore()) {
             Counter.setHighScore(Counter.getCountSliced());
             Counter.saveHighScore();

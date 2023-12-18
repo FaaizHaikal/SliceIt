@@ -57,7 +57,7 @@ public class Counter {
     try (BufferedReader reader = new BufferedReader(new FileReader(DATA))) {
       String encodedScore = reader.readLine();
       if (encodedScore != null) {
-          return decodeHighScore(encodedScore);
+        return decodeHighScore(encodedScore);
       }
     } catch (IOException e) {
       e.printStackTrace();
