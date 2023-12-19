@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Text {
-  public static void centeredText (Graphics2D g, String text, int width, int height, Font font, Color color) {
+  public static void centeredText(Graphics2D g, String text, int width, int height, Font font, Color color) {
     g.setFont(font);
     g.setColor(color);
 
